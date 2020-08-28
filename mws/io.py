@@ -30,7 +30,8 @@ def write_data(system, filen):
 step 0
 num_atoms {natoms}
 num_electrode_atoms 0
-# box {boxx} {boyy} {bozz}
+# box
+ {boxx} {boyy} {bozz}
 # coordinates : {natoms} atoms - step 0
 """.format(
         natoms=system.n_particles,
@@ -89,9 +90,9 @@ def read_data(filen):
         raise ValueError("Invalid format for metalwalls restart file")
 
     num_atoms = int(data[2][1])
-    boxx = float(data[5][0]) * BOHR_TO_NM
-    boyy = float(data[5][1]) * BOHR_TO_NM
-    bozz = float(data[5][2]) * BOHR_TO_NM
+    boxx = float(data[5][0]) / NM_TO_BOHR
+    boyy = float(data[5][1]) / NM_TO_BOHR
+    bozz = float(data[5][2]) / NM_TO_BOHR
 
     system = mbuild.Compound()
     system.periodicity = np.array([boxx,boyy,bozz])
@@ -101,9 +102,9 @@ def read_data(filen):
             mbuild.Compound(
                 name=name,
                 pos=[
-                    x * BOHR_TO_NM,
-                    y * BOHR_TO_NM,
-                    z * BOHR_TO_NM
+                    float(x) / NM_TO_BOHR,
+                    float(y) / NM_TO_BOHR,
+                    float(z) / NM_TO_BOHR,
                 ]
             )
         )
