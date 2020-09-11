@@ -17,7 +17,7 @@ def check_simulation(filen, nsteps):
         with open(filen) as f:
             for line in f:
                 pass
-            last = line
+            last = line.strip().split()
     except OSError:
         return False
 
