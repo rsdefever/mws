@@ -21,7 +21,12 @@ def check_simulation(filen, nsteps):
     except OSError:
         return False
 
-    if int(last[0]) == nsteps:
-        return True
-    else:
+
+    try:
+        if int(last[0]) == nsteps:
+            return True
+        else:
+            return False
+    except (ValueError, IndexError):
         return False
+
